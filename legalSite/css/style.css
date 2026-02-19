@@ -1,0 +1,423 @@
+body {
+  margin: 0;
+  font-family: Inter, system-ui, Arial, sans-serif;
+  font-size: clamp(13px, 1.4vw, 16px);
+  background: #0f0f0f;
+  color: #e5e5e5;
+  padding-top: 70px;
+}
+
+/* Prevent horizontal scroll when shifting content for the sidebar */
+html, body {
+  overflow-x: hidden;
+}
+
+header {
+  background: #0f0f0f;
+  padding: 16px 40px;
+  border-bottom: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+header h1 {
+  margin: 0;
+  font-size: clamp(22px, 4vw, 32px);
+  line-height: 1;
+  transition: opacity 0.5s ease;
+}
+
+header h1.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.brand-logo {
+  height: 50px;
+  width: auto;
+  transition: opacity 0.5s ease, visibility 0s linear 0.5s;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.brand-logo.hidden {
+  display: block !important;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.brand-logo.visible {
+  display: block !important;
+  opacity: 1;
+  visibility: visible;
+  transition-delay: 0.5s;
+  pointer-events: auto;
+}
+
+.brand-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+}
+
+.brand-row #brand-text {
+  position: relative;
+  z-index: 1;
+}
+
+.brand-row #brand-logo {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+}
+
+#sidebarToggle {
+  background: transparent;
+  border: none;
+  color: #e5e5e5;
+  -webkit-tap-highlight-color: transparent;
+  padding: 2px 4px;
+  font-size: 18px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 6px;
+  transition: color 0.2s ease;
+  outline: none;
+}
+
+#sidebarToggle:hover {
+  color: #2a8cff;
+}
+
+#sidebarToggle:focus {
+  outline: none;
+  border: none;
+  color: #e5e5e5;
+}
+
+#sidebarToggle:focus-visible {
+  outline: none;
+  border: none;
+  color: #e5e5e5;
+}
+
+#sidebarToggle:active {
+  color: #e5e5e5;
+}
+
+@media (hover: none) {
+  #sidebarToggle:hover {
+    color: #e5e5e5;
+  }
+}
+
+nav a {
+  color: #aaa;
+  margin-right: 20px;
+  text-decoration: none;
+}
+
+nav a:hover {
+  color: #fff;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  max-width: 900px;
+  margin: 60px auto;
+  padding: 0 20px;
+  box-sizing: border-box;
+  width: 100%;
+  will-change: transform;
+}
+
+/* Sidebar styles */
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: 70px; /* adjust to account for fixed header */
+  bottom: 0;
+  width: 220px;
+  background: #0f0f0f;
+  border-right: none;
+  box-shadow: none;
+  padding: 20px;
+  box-sizing: border-box;
+  transform: translateX(-100%);
+  transition: transform 0.6s cubic-bezier(.2,.9,.2,1);
+  z-index: 40;
+}
+
+
+/* position sidebar content at lower-left */
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end; /* push content to bottom */
+  align-items: flex-start; /* align items to left */
+  text-align: left;
+  padding-bottom: 36px; /* give a little spacing from bottom */
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+
+.sidebar li {
+  width: 100%;
+}
+
+.sidebar a {
+  color: #ddd;
+  display: inline-block;
+  padding: 8px 12px;
+  text-decoration: none;
+  width: 100%;
+  text-align: left;
+}
+
+.sidebar a:hover {
+  color: #2a8cff;
+}
+
+/* When sidebar is open */
+body.sidebar-open .sidebar {
+  transform: translateX(0);
+}
+
+/* When sidebar opens, shift only the main content and footer slightly
+   so header remains fixed in place. This avoids moving the header while
+   keeping page content visible. */
+body.sidebar-open {
+  /* no body padding so header doesn't shift */
+}
+
+body.sidebar-open .container,
+body.sidebar-open .footer-links {
+  transform: none;
+  margin-left: 220px;
+  width: calc(100% - 220px);
+  box-sizing: border-box;
+}
+
+body.sidebar-open .footer-links {
+  margin-right: 0;
+}
+
+body.sidebar-open .container {
+  margin-right: 0;
+  max-width: none;
+}
+
+.container,
+.footer-links,
+footer {
+  transition: transform 1s cubic-bezier(.2,.9,.2,1), margin-left 1s cubic-bezier(.2,.9,.2,1), width 1s cubic-bezier(.2,.9,.2,1);
+}
+
+h2 {
+  color: #fff;
+}
+
+.container > h1 {
+  color: #fff;
+  text-align: center;
+}
+
+.terms-page .container {
+  align-items: center;
+  /* text-align: center; */
+}
+
+.terms-page .container div h2{
+  text-align: center;
+  max-width: 760px;
+}
+
+.intro-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  align-self: center;
+  margin-top: 12px;
+  margin-bottom: 8px;
+  background: #ffffff;
+  color: #000000;
+  border: none;
+  border-radius: 9999px;
+  padding: 9px 18px;
+  font-size: clamp(13px, 2vw, 15px);
+  line-height: 1;
+  cursor: pointer;
+  transform: scale(1);
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.intro-cta:hover {
+  background: #f2f2f2;
+  font-weight: 700;
+  color: #222;
+  transform: scale(1.08);
+}
+
+.intro-cta svg {
+  display: block;
+  margin-bottom: 5px;
+}
+
+p {
+  line-height: 1.7;
+  color: #ccc;
+}
+
+footer {
+  text-align: center;
+  padding: 40px;
+  color: #777;
+  border-top: 1px solid #222;
+  margin-top: 80px;
+}
+
+/* Footer Links Section */
+.footer-links {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 40px;
+  padding: 60px 40px 40px;
+  border-top: 1px solid #222;
+}
+
+.footer-column h3 {
+  color: #fff;
+  font-size: clamp(13px, 1.5vw, 16px);
+  margin-bottom: 20px;
+  margin-top: 0;
+}
+
+.footer-column ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-column li {
+  margin-bottom: 12px;
+}
+
+.footer-column a {
+  color: #aaa;
+  text-decoration: none;
+  font-size: clamp(12px, 1.3vw, 14px);
+  transition: color 180ms cubic-bezier(.2,.9,.2,1);
+}
+
+.footer-column a:hover {
+  color: #2a8cff;
+}
+
+/* Responsive footer links for smaller screens */
+@media (max-width: 1024px) {
+  .footer-links {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    padding: 40px 20px;
+  }
+}
+
+@media (max-width: 750px) {
+  .footer-links {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    padding: 40px 20px;
+  }
+}
+
+/* Utility classes used by the toggle button (minimal subset) */
+.p-xs { padding: 6px; }
+.text-primary-44 { color: #ffffff; }
+.hover\:text-primary-100:hover { color: #2a8cff; }
+.duration-short { transition-duration: 180ms; }
+.duration-250 { transition-duration: 250ms; }
+.ease-curve-a { transition-timing-function: cubic-bezier(.2,.9,.2,1); }
+.scale-inline-100 { transform: scale(1); }
+.cursor-pointer { cursor: pointer; }
+.transition-colors { transition-property: color, background-color, border-color; }
+.transition { transition-property: all; }
+.flex { display: flex; }
+.justify-between { justify-content: space-between; }
+.gap-sm { gap: 12px; }
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* responsive helpers (simple) */
+.hidden { display: none !important; }
+@media (min-width: 768px) {
+  .md\:block { display: block !important; }
+  .md\:hidden { display: none !important; }
+}
+
+/* Position toggle button to right on small screens */
+@media (max-width: 750px) {
+  .brand-row {
+    justify-content: space-between;
+  }
+  
+  #sidebarToggle {
+    display: inline-flex !important;
+  }
+}
+
+/* horizontal padding utilities */
+.px-0 { padding-left: 0 !important; padding-right: 0 !important; }
+
+/* when the sidebar is open, style the toggle (example) */
+body.sidebar-open #sidebarToggle { 
+  color: #e5e5e5;
+}
+
+body.sidebar-open #sidebarToggle:hover {
+  color: #2a8cff;
+}
+
+footer .justify-between {
+  justify-content: center;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+footer .justify-between a {
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+}
+
+footer .justify-between a:hover {
+  color: #2a8cff;
+}
